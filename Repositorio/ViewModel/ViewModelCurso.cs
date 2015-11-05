@@ -1,10 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Repositorio.Model;
+﻿using Repositorio.Model;
 
+//**Comentarios puestos en ViewModelAlumno**
 namespace Repositorio.ViewModel
 {
     public class ViewModelCurso : IViewModel<Curso>
@@ -51,7 +47,7 @@ namespace Repositorio.ViewModel
 
         public object[] GetKeys()
         {
-            return new[] {(object) idCurso};
+            return new[] { (object)idCurso };
         }
     }
 }
