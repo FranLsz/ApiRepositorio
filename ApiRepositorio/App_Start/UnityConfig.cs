@@ -24,10 +24,14 @@ namespace ApiRepositorio
             container.RegisterType<DbContext, Alumno15Entities>();
 
             //Repositorios
+
+            //Alumno
             container.RegisterType<
                 IRepositorio<Alumno, ViewModelAlumno>,
                 RepositorioEntity<Alumno, ViewModelAlumno>
                 >();
+
+            //Curso
             container.RegisterType<
                 IRepositorio<Curso, ViewModelCurso>,
                 RepositorioEntity<Curso, ViewModelCurso>

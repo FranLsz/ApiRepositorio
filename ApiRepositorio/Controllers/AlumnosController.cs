@@ -14,6 +14,7 @@ namespace ApiRepositorio.Controllers
 {
     public class AlumnosController : ApiController
     {
+        //Anotación para indicar que esta propiedad va a ser injectada
         [Dependency]
         public IRepositorio<Alumno, ViewModelAlumno> repo { get; set; }
 
@@ -23,19 +24,69 @@ namespace ApiRepositorio.Controllers
             repo = new RepositorioEntity<Alumno, ViewModelAlumno>(context);
         }*/
 
-        public ICollection<ViewModelAlumno> Get()
+        public ICollection<ViewModelAlumno> GetAlumnos()
         {
             return repo.Get();
         }
 
         [ResponseType(typeof(ViewModelAlumno))]
-        public IHttpActionResult Get(String id)
+        public IHttpActionResult GetAlumnos(String id)
         {
-            var data = repo.Get(id);
+            //var data = repo.Get(dni); FAIL
+            var data = repo.Get(o => o.dni.Equals(id));
             if (data == null)
                 return NotFound();
 
             return Ok(data);
         }
+
+
+        [ResponseType(typeof(ViewModelAlumno))]
+        public IHttpActionResult PostAlumnos(ViewModelAlumno alumno)
+        {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+
+            repo.Add(alumno);
+
+            return Created("DefaultApi", alumno);
+        }
+
+        //pendiente
+        [ResponseType(typeof(ViewModelAlumno))]
+        public IHttpActionResult PutAlumnos(String id, ViewModelAlumno alumno)
+        {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+
+            if (id != alumno.dni)
+            {
+                return BadRequest();
+            }
+
+            repo.Actualizar(alumno);
+
+            return Created("DefaultApi", alumno);
+        }
+
+        //pendiente
+        [ResponseType(typeof(ViewModelAlumno))]
+        public IHttpActionResult DeleteAlumnos(String id)
+        {
+            var alumno = repo.Get(id);
+            if (alumno == null)
+            {
+                return NotFound();
+            }
+            repo.Borrar(alumno);
+
+            return Ok(alumno);
+        }
+
+
     }
 }

@@ -46,7 +46,7 @@ namespace Repositorio.ViewModel
         //Devolución de las PRIMARY KEYS del objeto
         public object[] GetKeys()
         {
-            return new object[] { dni };
+            return new[] { dni };
         }
     }
 }
